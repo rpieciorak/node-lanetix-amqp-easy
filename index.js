@@ -113,11 +113,7 @@ module.exports = function (amqpUrl, socketOptions) {
             ])
           })
           .then(function () {
-            if (!options.topics || !options.topics.length) {
-              options.topics = ['']
-            }
-
-            return Promise.map(options.topics, function (topic) {
+            return Promise.map(options.topics || [], function (topic) {
               return ch.bindQueue(options.queue, options.exchange, topic, options.arguments || {})
             })
           })
