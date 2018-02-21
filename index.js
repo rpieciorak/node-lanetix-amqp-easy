@@ -118,7 +118,7 @@ module.exports = function (amqpUrl, socketOptions) {
             }
 
             return Promise.map(options.topics, function (topic) {
-              return ch.bindQueue(options.queue, options.exchange, topic, options.arguments || {})
+              return options.exchange ? ch.bindQueue(options.queue, options.exchange, topic, options.arguments || {}) : Promise.resolve()
             })
           })
           .then(function () {
